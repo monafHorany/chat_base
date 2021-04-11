@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "929465106065",
+    "project_id": "chat-base-1993",
+    "storage_bucket": "chat-base-1993.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:929465106065:android:ca0bd71fbfc03a2c9fc930",
+        "android_client_info": {
+          "package_name": "com.example.chat_base"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "929465106065-ik01rb9a70hrt7ptipk7vuujbnbglom4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBM-ZvoH5nmAA7RpeIuyJx0_Bis9jecI4M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "929465106065-ik01rb9a70hrt7ptipk7vuujbnbglom4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
