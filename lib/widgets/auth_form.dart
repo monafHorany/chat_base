@@ -1,10 +1,17 @@
+import 'dart:isolate';
+
 import 'package:flutter/material.dart';
 
 class AuthForm extends StatefulWidget {
-  const AuthForm({
-    Key key,
-  }) : super(key: key);
+  AuthForm(this.submitFn, this.isLoading);
 
+  final bool isLoading;
+  final void Function(
+    String email,
+    String password,
+    String username,
+    bool isLogin,
+  ) submitFn;
   @override
   _AuthFormState createState() => _AuthFormState();
 }
@@ -20,9 +27,12 @@ class _AuthFormState extends State<AuthForm> {
     FocusScope.of(context).unfocus();
     if (isValid) {
       _formKey.currentState.save();
-      print(_userEmail);
-      print(_userName);
-      print(_userPassword);
+      widget.submitFn(
+        _userEmail.trim(),
+        _userPassword.trim(),
+        _userName.trim(),
+        isLogin,
+      );
     }
   }
 
@@ -91,18 +101,21 @@ class _AuthFormState extends State<AuthForm> {
                     },
                   ),
                   SizedBox(height: 20),
-                  ElevatedButton(
-                      child: Text(isLogin ? 'Login' : 'Signup'),
-                      onPressed: _trySubmit),
-                  TextButton(
-                      onPressed: () {
-                        setState(() {
-                          isLogin = !isLogin;
-                        });
-                      },
-                      child: Text(isLogin
-                          ? 'Create new account'
-                          : 'I already have an account'))
+                  if (widget.isLoading) CircularProgressIndicator(),
+                  if (!widget.isLoading)
+                    ElevatedButton(
+                        child: Text(isLogin ? 'Login' : 'Signup'),
+                        onPressed: _trySubmit),
+                  if (!widget.isLoading)
+                    TextButton(
+                        onPressed: () {
+                          setState(() {
+                            isLogin = !isLogin;
+                          });
+                        },
+                        child: Text(isLogin
+                            ? 'Create new account'
+                            : 'I already have an account'))
                 ],
               ),
             ),
