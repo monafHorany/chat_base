@@ -1,4 +1,6 @@
 import 'package:chat_base/screens/auth_screen.dart';
+import 'package:chat_base/screens/chat_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:chat_base/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -15,6 +17,12 @@ class MyApp extends StatelessWidget {
     return FutureBuilder(
         future: _initialization,
         builder: (context, appSnapshot) {
+          if (appSnapshot.hasError) {
+            return CircularProgressIndicator();
+          }
+          if (appSnapshot.connectionState == ConnectionState.waiting) {
+            return CircularProgressIndicator();
+          }
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Chat_base',
@@ -30,7 +38,15 @@ class MyApp extends StatelessWidget {
               //   shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
               // ),
             ),
-            home: AuthScreen(),
+            home: StreamBuilder(
+              stream: FirebaseAuth.instance.authStateChanges(),
+              builder: (ctx, userSnapshot) {
+                if (userSnapshot.hasData) {
+                  return ChatScreen();
+                }
+                return AuthScreen();
+              },
+            ),
           );
         });
   }
