@@ -2,7 +2,6 @@ import 'package:chat_base/widgets/auth_form.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart';
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -40,7 +39,7 @@ class _AuthScreenState extends State<AuthScreen> {
           "email": email,
         });
       }
-    } on PlatformException catch (err) {} catch (err) {
+    } catch (err) {
       setState(() {
         _isLoading = false;
       });
